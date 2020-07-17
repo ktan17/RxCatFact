@@ -11,6 +11,7 @@ import UIKit
 extension UIColor {
   static let offBlack = UIColor(integerRed: 64, green: 64, blue: 64)
   static let ctaBlue = UIColor(integerRed: 75, green: 158, blue: 255)
+  static let ctaBlueHighlighted = UIColor(integerRed: 35, green: 72, blue: 116)
   
   convenience init(integerRed: Int, green: Int, blue: Int, alpha: CGFloat = 1.0) {
     self.init(

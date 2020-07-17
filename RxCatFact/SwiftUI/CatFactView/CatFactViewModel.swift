@@ -99,7 +99,9 @@ final class CatFactViewModel: ObservableObject {
     
     factStack.pop()
     if let (lastFact, lastExclamation) = factStack.top() {
-      outputs.loadingState = .done(fact: lastFact, exclamation: lastExclamation)
+      withAnimation {
+        outputs.loadingState = .done(fact: lastFact, exclamation: lastExclamation)
+      }
     }
     
     if factStack.count <= 1 {

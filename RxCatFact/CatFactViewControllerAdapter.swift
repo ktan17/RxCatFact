@@ -13,5 +13,8 @@ struct CatFactViewControllerAdapter: UIViewControllerRepresentable {
     return CatFactViewController()
   }
   
-  func updateUIViewController(_ uiViewController: CatFactViewController, context: Context) {}
+  func updateUIViewController(
+    _ uiViewController: CatFactViewController,
+    context: Context)
+  {}
 }

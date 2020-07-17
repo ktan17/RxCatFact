@@ -20,7 +20,7 @@ class RoundedButton: UIButton {
     
     backgroundColor = .white
     imageView?.contentMode = .scaleAspectFit
-    clipsToBounds = true
+    addDropShadow()
   }
   
   required init?(coder aDecoder: NSCoder) {
