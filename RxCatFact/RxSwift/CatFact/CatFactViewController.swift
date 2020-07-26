@@ -76,7 +76,6 @@ class CatFactViewController: UIViewController {
         self?.shareButton.isEnabled = true
         self?.factBodyView.setFact(to: attrString)
       }
-      
     }).disposed(by: disposeBag)
     
     backButton.setImage(
