@@ -13,10 +13,12 @@ struct MainView: View {
     TabView {
       CatFactViewControllerAdapter()
         .tabItem {
+          Image("rxswift")
           Text("RxSwift")
         }
       CatFactView()
         .tabItem {
+          Image("swiftui")
           Text("SwiftUI")
         }
     }
