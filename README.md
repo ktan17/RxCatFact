@@ -160,7 +160,7 @@ Any new framework is bound to have its share of kinks and flaws, and SwiftUI is 
 - Modifier order matters.
 - Absolute positioning can be difficult.
 - You can't declare constants in Function Builders.
-- The EnvironmentObject check happens at run-time and can crash your app.
+- The `EnvironmentObject` check happens at run-time and can crash your app.
 - Transition animations only work on View add/removal.
 
 These kind of problems introduce two main roadblocks to a good development experience: **unnecessary technicalities**, and **ugly workarounds**. I'll elaborate on two of the above points just so you can see what I mean.
@@ -198,13 +198,13 @@ VStack {
 }
 ```
 
-The Buttons merely have the modifier order swapped. So what do you think this will look like? Given the title of this grievance you'll probably guess that **they'll look different, and you would be correct**! Here's what you'll get:
+The buttons merely have the modifier order swapped. So what do you think this will look like? Given the title of this grievance you'll probably guess that **they'll look different, and you would be correct**! Here's what you'll get:
 
 <img src="https://lh4.googleusercontent.com/moE3ATE24KE4AnAKA5VjbXUI-GuqmccK-d7qqBbGkyahdPQ9l-FQskagSjYcEIjmmRNj5OyrNqkZRwHg28EwygYKB0l9-UM_a9MA84iv_txAilAPQPafk36TaVqgFdzyJD9x6xSx" width=200px>
 
 <u>Figure 6:</u> but why tho
 
-Technicalities like this can really make any framework or language **annoying to work with** (think of the difference between the double equals and triple equals in JavaScript). Modifier order really should not matter in order to make the development experience as simple, clean, and honestly sensible, as possible. Hopefully edge cases like these are fixed in the future.
+Technicalities like this can really make any framework or language **annoying to work with** (think of the difference between the double equals and triple equals in JavaScript) because you need to remember them! Modifier order really should not matter in order to make the SwiftUI development experience as simple, clean, and honestly sensible, as possible. Hopefully edge cases like these are fixed in the future.
 
 ---
 
@@ -272,14 +272,31 @@ Until SwiftUI matures, workarounds like these will be needed to achieve seemingl
 
 #### 2. SwiftUI abstracts a *lot* of iOS development away.
 
-This second and final point comes from my perspective as someone that has helped teach iOS development to new computer science students for three years. As much as I hate storyboards and Auto-layout, I always start my lessons there because it's simple, easy to use, intuitive, and allows you to get *something* working in a matter of minutes. But at least with storyboards, there is a foundation upon which you can segue (ha ha) into **fundamental iOS concepts** such as the View Controller lifecycle, the view hierarchy, the protocol-delegate pattern, etc.
+This second and final annoying point comes from my perspective as someone that has helped teach iOS development to new computer science students for four years. As much as I hate storyboards and Auto-layout, I always start my lessons there because it's simple, easy to use, intuitive, and allows you to get *something* working in a matter of minutes. But at least with storyboards, there is a foundation upon which you can segue (ha ha) into **fundamental iOS concepts** such as the View Controller lifecycle, the view hierarchy, the protocol-delegate pattern, etc.
 
 After this experiment, I think I can say that SwiftUI outclasses even storyboards with regards to the ease and speed in which you can build an app. Furthermore, the stickler inside me is really happy that it's pure programming rather than visual construction. However, the functional and declarative style of SwiftUI is so far from the frameworks and processes underlying UIKit and iOS apps in general (which are not going anywhere for a long time) that I **worry for beginners**.
 
-I firmly believe that the fewer black boxes you can have while teaching coding, the better. I'm all too familiar with the slight frustration that manifests on my students' faces when I tell them "just trust me, it'll work." Of course, some black boxes are necessary—taken to an extreme, it would obviously be ridiculous to start a course on iOS development with understanding how operating systems work. But there are so many powerful features that SwiftUI relies on: function builders, protocols, UIKit interoperability, value-type semantics, that require a **strong understanding of Swift and the way iOS apps work to fully understand**. My biggest worry with SwiftUI is that it's *so easy* that it provides a poor starting point for someone that really wants to get into iOS development long-term. I will end with the same lame concluding sentence that I have used in the previous sections: hopefully, this changes in the future.
+I firmly believe that the fewer black boxes you can have while teaching coding, the better. I'm all too familiar with the slight frustration that appears on my students' faces when I tell them, "Just trust me, it'll work." Of course, some black boxes are necessary—taken to an extreme, it would obviously be ridiculous to start a course on iOS development with understanding how operating systems work. But there are so many powerful features that SwiftUI relies on: function builders, protocols, UIKit interoperability, value-type semantics, that **require a strong understanding of Swift and the way iOS apps already work to fully understand**. My biggest worry with SwiftUI is that it's *so easy* that it provides a poor starting point for someone that really wants to get into iOS development long-term. I will end with the same lame concluding sentence that I have used in the previous section: hopefully, this changes in the future.
 
 ### Good
 
 #### 1. Easy to extend and interoperate with UIKit.
 
+Onto the good parts! This first one is fairly short and sweet: it's pretty easy to create adapters for UIKit components that you can add to your SwiftUI views. This is primarily achieved through the `UIViewRepresentable` and `UIViewControllerRepresentable` protocols. You can take a look at `ActivityIndicator.swift` and  `ActivityViewController.swift`  in the repo to see how this works. While Apple continues to work on porting UIKit views to SwiftUI, these protocols serve as a pretty good alternative in the meantime.
+
 #### 2. Easily facilitates a powerful architecture and well-organized codebase.
+
+One of the most notorious questions for any iOS developer is: "What architecture should I use?" Apple's answer to that is [MVC](https://en.wikipedia.org/wiki/Model–view–controller), which stands for Model-View-Controller. The idea is to separate **raw data (models)** from the actual **user-facing views**. The two interact through the **controller** object, which is responsible for reading and updating models and telling views what to display. The problem that arises from this architecture is also called MVC, or **Massive View Controller**. Since the view controllers have so much work to handle, you end up shoving all of your logic (business, data formatting, view updating) inside them and end up with these files that are thousands of lines long. Not very scalable or easy to work with.
+
+Over the years, a number of alternative architectures have risen in popularity: the aforementioned MVVM, [VIPER](https://www.raywenderlich.com/8440907-getting-started-with-the-viper-architecture-pattern), and [Clean Swift](https://clean-swift.com) are some examples. I always found it odd that though all of these are far better than MVC, Apple never changed their tutorials or guides to endorse a different architecture. SwiftUI solves this problem and makes the development process much easier. Now, developers are **strongly persuaded through the actual framework itself to adopt a reactive architecture where state drives views**.
+
+#### 3. It's Swift.
+
+Pun intended. I want this point to end my post, because it really is **the most promising thing I see about SwiftUI**. The iOS development process is far from perfect. It has taken me an extremely long time (4+ years) to become very comfortable with UIKit and the intricate processes that underlie any iOS app. But there were many instances during the development of RxCatFact that I was astounded by how fast and easy it was to code with SwiftUI. **Things that would normally take many lines to code were achievable in a single one** (animation by far is the most impressive). In addition, there are many things that suck in UIKit (like working with attributed strings) that have been greatly improved in SwiftUI.
+
+Out of the many programming languages I've used, Swift has a special place in my heart because I strongly resonate with its mission to make **code readable and succinct** and to make **development easy and enjoyable**. It's incredibly satisfying to write a gorgeous line in Swift that you couldn't in other languages. It's a compiled and statically typed language, meaning you have a powerful compiler that double-checks your code, and you (usually) don't have to worry about run-time crashes caused by silly errors.
+
+SwiftUI brings this philosophy to the entire process of iOS development, and as much as I hate change and relearning things, it is an incredibly exciting and promising framework. Though it is still very immature, if it ends up working it could really **revolutionize** what it means to be an iOS developer. But until then, I'll be happy with my good ol' MVVM, UIKit, and object-oriented programming.
+
+Thanks for reading, and remember: **Cats do not think that they are little people. They think that we are big cats. This influences their behavior in many ways. *Me-wow!***
+
